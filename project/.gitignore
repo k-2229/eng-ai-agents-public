@@ -1,0 +1,8 @@
+metadata.duckdb
+metadata.ducklake
+
+rustfs-data/
+rustfs-logs/
+
+__pycache__/
+*.pyc
