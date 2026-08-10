@@ -85,3 +85,29 @@ The curated Gold COCO category statistics table was published to:
 https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
 
 The published dataset contains 36 rows.
+
+## Final Verification
+
+The project includes `versioning_demo.py`, which demonstrates snapshot history,
+version-based time travel, timestamp-based time travel, the COCO crowded-scene
+query, the VisDrone busy-fragment query, and Gold-layer row counts.
+
+The final verification produced:
+
+- 22 COCO raw images
+- 143 COCO raw annotations
+- 143 Silver COCO annotations
+- 36 COCO Gold categories
+- 21 COCO Gold image statistics
+- 5 VisDrone raw fragments
+- 5 VisDrone Silver fragments
+- 4 VisDrone Gold busy fragments
+- 1093+ DuckLake snapshots during development
+
+RustFS was also verified to contain the physical lakehouse objects, and
+`ducklake_list_files` was used to identify the Parquet file backing the Gold
+category statistics table.
+
+The final Gold dataset was published to:
+
+https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
