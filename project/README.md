@@ -78,3 +78,10 @@ The curated Gold COCO category statistics table was published to the Hugging Fac
 https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
 
 The published dataset contains the `gold.category_statistics` table with 36 category-level records.
+## Hugging Face
+
+The curated Gold COCO category statistics table was published to:
+
+https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
+
+The published dataset contains 36 rows.
