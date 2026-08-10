@@ -29,6 +29,42 @@ FROM lake.raw.coco_images
 AT (TIMESTAMP => '2026-08-10 03:22:17+00')
 """))
 
+print("\n=== TRANSACTIONAL ROLLBACK ===")
+
+before_count = con.sql(
+    "SELECT COUNT(*) FROM lake.raw.coco_images"
+).fetchone()[0]
+
+con.execute("BEGIN TRANSACTION")
+
+con.execute("""
+INSERT INTO lake.raw.coco_images
+VALUES (
+    -999999,
+    's3://lakehouse/rollback-test.jpg',
+    'rollback-test.jpg',
+    -1,
+    -1,
+    'rollback_test',
+    'bad_test'
+)
+""")
+
+during_count = con.sql(
+    "SELECT COUNT(*) FROM lake.raw.coco_images"
+).fetchone()[0]
+
+con.execute("ROLLBACK")
+
+after_count = con.sql(
+    "SELECT COUNT(*) FROM lake.raw.coco_images"
+).fetchone()[0]
+
+print("Rows before bad transform:", before_count)
+print("Rows during bad transform:", during_count)
+print("Rows after ROLLBACK:", after_count)
+print("Rollback successful:", after_count == before_count)
+
 print("\n=== COCO CROWDED SCENES ===")
 print(con.sql("""
 SELECT image_uri, COUNT(*) AS n_people
