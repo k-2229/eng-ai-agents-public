@@ -5,22 +5,25 @@ This project implements a small DuckLake lakehouse using DuckDB and RustFS
 
 ## Data Sources
 
-- COCO 2017 validation sample: 20 images and their annotations.
-- VisDrone-style video fragment metadata: 5 sample fragments.
+- COCO 2017 validation sample with COCO images and annotations.
+- VisDrone-style video fragment metadata.
 
 ## Lakehouse Layers
 
 ### Raw
+
 - `raw.coco_images`
 - `raw.coco_annotations`
 - `raw.visdrone_fragments`
 
 ### Silver
+
 - `silver.coco_annotations_clean`
 - `silver.coco_image_summary`
 - `silver.visdrone_fragments`
 
 ### Gold
+
 - `gold.category_statistics`
 - `gold.image_statistics`
 - `gold.visdrone_busy_fragments`
@@ -29,85 +32,80 @@ This project implements a small DuckLake lakehouse using DuckDB and RustFS
 
 Start the services:
 
-    docker compose up -d
+```bash
+docker compose up -d
+cat > README.md <<'EOF'
+# CS375 Lakehouse Project
 
-Run the complete pipeline:
+This project implements a small DuckLake lakehouse using DuckDB and RustFS
+(S3-compatible object storage).
 
-    docker compose exec lab ./rebuild.sh
+## Data Sources
 
-The rebuild script attaches DuckLake, creates the required tables,
-ingests the COCO and VisDrone data, and creates the Silver and Gold layers.
+- COCO 2017 validation sample with COCO images and annotations.
+- VisDrone-style video fragment metadata.
 
-## Verification
+## Lakehouse Layers
 
-The reproducible rebuild produces:
+### Raw
 
-- 20 COCO images
-- 143 COCO annotations
-- 143 cleaned COCO annotations
-- 20 COCO image summaries
-- 5 VisDrone fragments
-- 5 cleaned VisDrone fragments
-- 36 COCO category statistics
-- 20 COCO image statistics
-- 4 busy VisDrone fragments
+- `raw.coco_images`
+- `raw.coco_annotations`
+- `raw.visdrone_fragments`
 
-The VisDrone Gold layer identifies fragments containing more than
-20 objects.
+### Silver
 
-## Project Structure
+- `silver.coco_annotations_clean`
+- `silver.coco_image_summary`
+- `silver.visdrone_fragments`
 
-- `docker-compose.yml` - RustFS and DuckDB/Python environment
-- `run_sql.py` - DuckLake SQL runner
-- `rebuild.sh` - reproducible end-to-end rebuild
-- `notebooks/` - ingestion scripts
-- `sql/` - Raw, Silver, and Gold transformations
+### Gold
 
-## Hugging Face Round-Trip
+- `gold.category_statistics`
+- `gold.image_statistics`
+- `gold.visdrone_busy_fragments`
 
-The curated Gold COCO category statistics table was published to the Hugging Face Hub:
+## Rebuild
 
-https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
+Start the services:
 
-The published dataset contains the curated `gold.category_statistics` table with 36 category-level records.
+```bash
+docker compose up -d
+git status
+cat > README.md <<'EOF'
+# CS375 Lakehouse Project
 
-## Hugging Face Round-Trip
+This project implements a small DuckLake lakehouse using DuckDB and RustFS
+(S3-compatible object storage).
 
-The curated Gold COCO category statistics table was published to the Hugging Face Hub:
+## Data Sources
 
-https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
+- COCO 2017 validation sample with COCO images and annotations.
+- VisDrone-style video fragment metadata.
 
-The published dataset contains the `gold.category_statistics` table with 36 category-level records.
-## Hugging Face
+## Lakehouse Layers
 
-The curated Gold COCO category statistics table was published to:
+### Raw
 
-https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
+- `raw.coco_images`
+- `raw.coco_annotations`
+- `raw.visdrone_fragments`
 
-The published dataset contains 36 rows.
+### Silver
 
-## Final Verification
+- `silver.coco_annotations_clean`
+- `silver.coco_image_summary`
+- `silver.visdrone_fragments`
 
-The project includes `versioning_demo.py`, which demonstrates snapshot history,
-version-based time travel, timestamp-based time travel, the COCO crowded-scene
-query, the VisDrone busy-fragment query, and Gold-layer row counts.
+### Gold
 
-The final verification produced:
+- `gold.category_statistics`
+- `gold.image_statistics`
+- `gold.visdrone_busy_fragments`
 
-- 22 COCO raw images
-- 143 COCO raw annotations
-- 143 Silver COCO annotations
-- 36 COCO Gold categories
-- 21 COCO Gold image statistics
-- 5 VisDrone raw fragments
-- 5 VisDrone Silver fragments
-- 4 VisDrone Gold busy fragments
-- 1093+ DuckLake snapshots during development
+## Rebuild
 
-RustFS was also verified to contain the physical lakehouse objects, and
-`ducklake_list_files` was used to identify the Parquet file backing the Gold
-category statistics table.
+Start the services:
 
-The final Gold dataset was published to:
-
-https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
+```bash
+docker compose up EOF
