@@ -131,7 +131,7 @@ for i, image in enumerate(images, start=1):
     con.execute(
         """
         INSERT INTO lake.raw.coco_images
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         [
             image["id"],
@@ -140,6 +140,7 @@ for i, image in enumerate(images, start=1):
             image["width"],
             image["height"],
             "val2017",
+            "initial_ingest",
         ],
     )
 
