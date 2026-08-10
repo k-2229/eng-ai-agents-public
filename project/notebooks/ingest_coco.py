@@ -90,6 +90,10 @@ con = duckdb.connect("/workspace/metadata.duckdb")
 
 con.execute(open("/workspace/sql/00_attach.sql").read())
 
+# Make ingestion reproducible: clear previous sample before reloading.
+con.execute("DELETE FROM lake.raw.coco_images")
+con.execute("DELETE FROM lake.raw.coco_annotations")
+
 # ---------------------------------------------------------
 # Upload images to RustFS
 # ---------------------------------------------------------
