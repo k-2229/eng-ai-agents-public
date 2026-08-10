@@ -62,3 +62,11 @@ The VisDrone Gold layer identifies fragments containing more than
 - `rebuild.sh` - reproducible end-to-end rebuild
 - `notebooks/` - ingestion scripts
 - `sql/` - Raw, Silver, and Gold transformations
+
+## Hugging Face Round-Trip
+
+The curated Gold COCO category statistics table was published to the Hugging Face Hub:
+
+https://huggingface.co/datasets/Kp2229/cs375-lakehouse-gold
+
+The published dataset contains the curated `gold.category_statistics` table with 36 category-level records.
